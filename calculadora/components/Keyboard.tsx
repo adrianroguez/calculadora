@@ -6,17 +6,18 @@ import { CalculatorBtn } from "./CalculatorBtn";
 type Props = {
   onPress: (value: string) => void;
   onClear: () => void;
+  onDelete: () => void;
 };
 
-export const Keyboard: React.FC<Props> = ({ onPress, onClear }) => {
+export const Keyboard: React.FC<Props & { onDelete: () => void }> = ({ onPress, onClear, onDelete }) => {
   const accentColor = "#ff9500";
   return (
     <View style={styles.container}>
       <Row>
         <CalculatorBtn label="AC" color={accentColor} onPress={onClear} />
-        <CalculatorBtn icon="backspace-sharp" color={accentColor} onPress={() => console.log("Borrar")} />
+        <CalculatorBtn icon="backspace-sharp" color={accentColor} onPress={onDelete} />
         <CalculatorBtn label="%" color={accentColor} onPress={() => onPress("%")} />
-        <CalculatorBtn label="/" color={accentColor} onPress={() => onPress("/")} />
+        <CalculatorBtn label="÷" color={accentColor} onPress={() => onPress("÷")} />
       </Row>
 
       <Row>

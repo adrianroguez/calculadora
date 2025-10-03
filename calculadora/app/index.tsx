@@ -11,10 +11,20 @@ export default function Index() {
     setDisplay((prev) => (prev === "0" ? value : prev + value));
   };
 
+  const handleDelete = () => {
+    console.log("Delete pressed");
+    setDisplay((prev) => prev.slice(0, -1) || "0");
+  };
+
+  const handleClear = () => {
+    console.log("Clear pressed");
+    setDisplay("0");
+  };
+
   return (
     <View style={styles.container}>
       <Display value={display} />
-      <Keyboard onPress={handlePress} onClear={() => setDisplay("0")} />
+      <Keyboard onPress={handlePress} onClear={handleClear} onDelete={handleDelete} />
     </View>
   );
 }
