@@ -7,7 +7,9 @@ export default function Index() {
   const [display, setDisplay] = useState("0");
 
   const handlePress = (value: string) => {
-    console.log("Pressed:", value);
+    if (value === "=") {
+      display.match(/\d[\+\-\÷\×]\d/g) ? calc() : setDisplay(display);
+    }
     setDisplay((prev) => (prev === "0" ? value : prev + value));
   };
 
@@ -19,6 +21,10 @@ export default function Index() {
   const handleClear = () => {
     console.log("Clear pressed");
     setDisplay("0");
+  };
+
+  const calc = () => {
+    const numbers = display.split(/([\+\-\÷\×])/g);
   };
 
   return (
