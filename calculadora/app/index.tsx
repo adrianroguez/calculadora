@@ -2,15 +2,19 @@ import { View, StyleSheet } from "react-native";
 import { Display } from "@/components/Display";
 import { Keyboard } from "@/components/Keyboard";
 import { useState } from "react";
+import { evaluate } from "mathjs";
 
 export default function Index() {
   const [display, setDisplay] = useState("0");
 
   const handlePress = (value: string) => {
-    if (value === "=") {
-      display.match(/\d[\+\-\÷\×]\d/g) ? calc() : setDisplay(display);
+    if (display === "0" && /[0-9]/.test(value)) {
+      setDisplay(value);
+    } else if (display === "0" && /[\+\-\÷\×]/.test(value)) {
+      return;
+    } else {
+      setDisplay((prev) => prev + value);
     }
-    setDisplay((prev) => (prev === "0" ? value : prev + value));
   };
 
   const handleDelete = () => {
@@ -23,14 +27,24 @@ export default function Index() {
     setDisplay("0");
   };
 
-  const calc = () => {
-    const numbers = display.split(/([\+\-\÷\×])/g);
+  const handleEqual = () => {
+    console.log("Equal pressed");
+    try {
+      if (display === "0") return;
+      if (/[\+\-\÷\×]$/.test(display)) return;
+
+      const expression = display.replace(/×/g, "*").replace(/÷/g, "/");
+      const result = evaluate(expression);
+      setDisplay(result.toString());
+    } catch (error) {
+      console.log("Error");
+    }
   };
 
   return (
     <View style={styles.container}>
       <Display value={display} />
-      <Keyboard onPress={handlePress} onClear={handleClear} onDelete={handleDelete} />
+      <Keyboard onPress={handlePress} onClear={handleClear} onDelete={handleDelete} onEquals={handleEqual} />
     </View>
   );
 }

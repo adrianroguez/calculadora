@@ -7,10 +7,12 @@ type Props = {
   onPress: (value: string) => void;
   onClear: () => void;
   onDelete: () => void;
+  onEquals: () => void;
 };
 
-export const Keyboard: React.FC<Props & { onDelete: () => void }> = ({ onPress, onClear, onDelete }) => {
+export const Keyboard: React.FC<Props> = ({ onPress, onClear, onDelete, onEquals }) => {
   const accentColor = "#ff9500";
+  const secondaryBgColor = "#777";
   return (
     <View style={styles.container}>
       <Row>
@@ -45,7 +47,7 @@ export const Keyboard: React.FC<Props & { onDelete: () => void }> = ({ onPress, 
         <CalculatorBtn icon="calculator-sharp" color={accentColor} onPress={() => console.log("Modo científico")} />
         <CalculatorBtn label="0" onPress={() => onPress("0")} />
         <CalculatorBtn label="." onPress={() => onPress(".")} />
-        <CalculatorBtn icon="reorder-two" onPress={() => onPress("=")} backgroundColor={accentColor} />
+        <CalculatorBtn icon="reorder-two" onPress={onEquals} backgroundColor={accentColor} />
       </Row>
     </View>
   );
