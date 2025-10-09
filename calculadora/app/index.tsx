@@ -1,19 +1,31 @@
 import { View, StyleSheet } from "react-native";
 import { Display } from "@/components/Display";
 import { Keyboard } from "@/components/Keyboard";
-import { useState } from "react";
+import React, { useState } from "react";
 import { evaluate } from "mathjs";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
   const [display, setDisplay] = useState("0");
+  const [isResult, setIsResult] = useState(false);
 
   const handlePress = (value: string) => {
-    if (display === "0" && /[0-9]/.test(value)) {
-      setDisplay(value);
-    } else if (display === "0" && /[\+\-\÷\×]/.test(value)) {
-      return;
-    } else {
-      setDisplay((prev) => prev + value);
+    console.log(value);
+    let input = parseFloat(value);
+    if (!isNaN(input)) {
+      if (isResult) {
+        setDisplay(String(input));
+        setIsResult(false);
+      } else {
+        setDisplay((prev) => prev === "0" ? String(input) : prev + String(input));
+      }
+    }
+
+    if (value==="." && !display.includes(".")) setDisplay((prev) => prev === "0" ? value : prev + value);
+
+    if (/[\+\-\÷\×\%]/.test(value) || /[\log\\sin\pi\cos\\tan\)\(\^\e]/.test(value)) {
+      setIsResult(false);
+      setDisplay((prev) => prev === "0" ? value : prev + value);
     }
   };
 
@@ -36,16 +48,19 @@ export default function Index() {
       const expression = display.replace(/×/g, "*").replace(/÷/g, "/");
       const result = evaluate(expression);
       setDisplay(result.toString());
+      setIsResult(true);
     } catch (error) {
       console.log("Error");
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Display value={display} />
-      <Keyboard onPress={handlePress} onClear={handleClear} onDelete={handleDelete} onEquals={handleEqual} />
-    </View>
+    <SafeAreaView style={{flex: 1}}>
+      <View style={styles.container}>
+        <Display value={display} />
+        <Keyboard onPress={handlePress} onClear={handleClear} onDelete={handleDelete} onEquals={handleEqual} />
+      </View>
+    </SafeAreaView>
   );
 }
 

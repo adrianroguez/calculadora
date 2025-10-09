@@ -22,7 +22,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#fff",
-    fontSize: 50,
+    fontSize: 40,
     fontWeight: "500",
+    textAlign: "right",
   },
 });
