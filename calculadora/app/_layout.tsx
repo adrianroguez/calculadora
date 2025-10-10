@@ -4,6 +4,7 @@ import { View, StyleSheet, ActivityIndicator } from "react-native";
 import * as Font from "expo-font";
 import { Stack } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 export default function RootLayout() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -29,11 +30,13 @@ export default function RootLayout() {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#000" }}>
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-      </Stack>
-    </SafeAreaView>
+    <ThemeProvider>
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#000" }}>
+        <Stack>
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+        </Stack>
+      </SafeAreaView>
+    </ThemeProvider>
   );
 }
 

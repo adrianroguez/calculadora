@@ -1,3 +1,4 @@
+// app/index.tsx
 import React, { useState } from "react";
 import { View, StyleSheet, Text, Dimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -12,22 +13,20 @@ import {
   handleToggleSign,
 } from "@/lib/calculator";
 import { TopBar } from "@/components/TopBar";
+import { useTheme } from "@/context/ThemeContext";
 
 const { width } = Dimensions.get("window");
 const scale = (size: number) => (width / 400) * size;
 
 export default function Index() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   const [display, setDisplay] = useState("0");
   const [isResult, setIsResult] = useState(false);
   const [scientific, setScientific] = useState(false);
 
   const history = [
-    "5 + 5 = 10",
-    "10 × 2 = 20",
-    "5 + 5 = 10",
-    "10 × 2 = 20",
-    "5 + 5 = 10",
-    "10 × 2 = 20",
     "5 + 5 = 10",
     "10 × 2 = 20",
     "5 + 5 = 10",
@@ -72,7 +71,13 @@ export default function Index() {
   };
 
   return (
-    <SafeAreaView style={styles.root} edges={["bottom", "left", "right"]}>
+    <SafeAreaView
+      style={[
+        styles.root,
+        { backgroundColor: isDark ? "#000" : "#fff" },
+      ]}
+      edges={["bottom", "left", "right"]}
+    >
       <TopBar
         scientific={scientific}
         toggleScientific={() => setScientific(!scientific)}
@@ -80,12 +85,19 @@ export default function Index() {
       />
       <View style={styles.container}>
         <LinearGradient
-          colors={["#000", "rgba(0,0,0,0)"]}
+          colors={isDark ? ["#000", "rgba(0,0,0,0)"] : ["#fff", "rgba(255,255,255,0)"]}
           style={styles.topFade}
         />
         <View style={styles.historyContainer}>
           {history.map((item, index) => (
-            <Text key={index} style={styles.historyText} numberOfLines={1}>
+            <Text
+              key={index}
+              style={[
+                styles.historyText,
+                { color: isDark ? "#999" : "#555" },
+              ]}
+              numberOfLines={1}
+            >
               {item}
             </Text>
           ))}
@@ -113,7 +125,6 @@ export default function Index() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: "#000",
   },
   container: {
     flex: 1,
@@ -125,7 +136,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    height: 100, // ajusta según el alto de tu TopBar
+    height: 100,
     zIndex: 10,
   },
   historyContainer: {
@@ -134,7 +145,6 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   historyText: {
-    color: "#999",
     fontSize: scale(20),
     textAlign: "right",
   },

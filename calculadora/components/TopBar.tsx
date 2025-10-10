@@ -1,6 +1,8 @@
+// components/TopBar.tsx
 import React, { useState } from "react";
 import { View, TouchableOpacity, Text, StyleSheet, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useTheme } from "@/context/ThemeContext";
 
 type TopBarProps = {
   scientific: boolean;
@@ -14,27 +16,37 @@ export const TopBar: React.FC<TopBarProps> = ({
   onMenuPress,
 }) => {
   const [menuVisible, setMenuVisible] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+  const isDark = theme === "dark";
 
-  const handleMenuToggle = () => setMenuVisible(!menuVisible);
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: isDark ? "#000" : "#fff" }]}>
       <TouchableOpacity style={styles.leftButton} onPress={toggleScientific}>
-        <Text style={styles.buttonText}>
+        <Text style={[styles.buttonText, { color: isDark ? "#fff" : "#000" }]}>
           {scientific ? "Científica" : "Básica"}
         </Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={handleMenuToggle}>
-        <Ionicons name="ellipsis-vertical" size={24} color="#fff" />
+      <TouchableOpacity onPress={() => setMenuVisible(!menuVisible)}>
+        <Ionicons name="ellipsis-vertical" size={24} color={isDark ? "#fff" : "#000"} />
       </TouchableOpacity>
 
       {menuVisible && (
-        <View style={styles.dropdown}>
+        <View
+          style={[
+            styles.dropdown,
+            { backgroundColor: isDark ? "#222" : "#eee" },
+          ]}
+        >
           <Pressable onPress={() => console.log("Historial")}>
-            <Text style={styles.option}>Ver historial</Text>
+            <Text style={[styles.option, { color: isDark ? "#fff" : "#000" }]}>
+              Ver historial
+            </Text>
           </Pressable>
-          <Pressable onPress={() => console.log("Tema oscuro")}>
-            <Text style={styles.option}>Cambiar tema</Text>
+          <Pressable onPress={toggleTheme}>
+            <Text style={[styles.option, { color: isDark ? "#fff" : "#000" }]}>
+              Cambiar a {isDark ? "modo claro" : "modo oscuro"}
+            </Text>
           </Pressable>
         </View>
       )}
@@ -56,9 +68,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#444",
     borderRadius: 12,
   },
-  rightButton: {},
   buttonText: {
-    color: "#fff",
     fontWeight: "bold",
     fontSize: 16,
   },
@@ -66,7 +76,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 50,
     right: 10,
-    backgroundColor: "#222",
     borderRadius: 12,
     paddingVertical: 8,
     width: 180,
@@ -77,7 +86,6 @@ const styles = StyleSheet.create({
     zIndex: 1000,
   },
   option: {
-    color: "#fff",
     paddingVertical: 10,
     paddingHorizontal: 15,
     fontSize: 16,
