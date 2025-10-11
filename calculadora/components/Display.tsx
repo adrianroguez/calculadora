@@ -1,3 +1,4 @@
+import { useTheme } from "@/contexts/ThemeContext";
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
@@ -6,10 +7,12 @@ type Props = {
 };
 
 export const Display: React.FC<Props> = ({ value }) => {
+  const { theme } = useTheme();
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
       <Text
-        style={styles.text}
+        style={[styles.text, { color: theme.text }]}
         numberOfLines={1}
         adjustsFontSizeToFit
         minimumFontScale={0.4}
