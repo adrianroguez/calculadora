@@ -1,50 +1,38 @@
-# Welcome to your Expo app 👋
+## 📂 Índice de archivos del proyecto
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+### 🧠 Contextos
+- [`/contexts/ThemeContext.tsx`](./contexts/ThemeContext.tsx) — Maneja el tema claro/oscuro de la app  
+- [`/contexts/HistoryContext.tsx`](./contexts/HistoryContext.tsx) — Gestiona el historial de operaciones con persistencia local  
 
-## Get started
+### 🧮 Lógica
+- [`/lib/calculator.ts`](./lib/calculator.ts) — Contiene toda la lógica del cálculo (operadores, paréntesis, porcentaje, etc.)
 
-1. Install dependencies
+### 🧱 Componentes
+- [`/components/CalculatorBtn.tsx`](./components/CalculatorBtn.tsx) — Botón reutilizable de la calculadora  
+- [`/components/Display.tsx`](./components/Display.tsx) — Pantalla principal donde se muestra el resultado  
+- [`/components/Keyboard.tsx`](./components/Keyboard.tsx) — Teclado principal (modo básico y científico)  
+- [`/components/HistoryModal.tsx`](./components/HistoryModal.tsx) — Modal con historial completo de operaciones  
+- [`/components/Row.tsx`](./components/Row.tsx) — Contenedor horizontal de botones  
+- [`/components/TopBar.tsx`](./components/TopBar.tsx) — Barra superior (tema, modo científico e historial)
 
-   ```bash
-   npm install
-   ```
+### 📱 Pantallas
+- [`/app/_layout.tsx`](./app/_layout.tsx) — Layout raíz con carga de fuentes y providers  
+- [`/app/index.tsx`](./app/index.tsx) — Pantalla principal con Display, Teclado e Historial
 
-2. Start the app
+### 🎨 Recursos
+- [`/assets/fonts/`](./assets/fonts/) — Tipografías personalizadas (Source Code Pro)  
+- [`/assets/images/`](./assets/images/) — Recursos gráficos o íconos  
 
-   ```bash
-   npx expo start
-   ```
+### ⚙️ Configuración
+- [`app.json`](./app.json) — Configuración de Expo  
+- [`tsconfig.json`](./tsconfig.json) — Configuración de TypeScript  
+- [`eslint.config.js`](./eslint.config.js) — Reglas de linting  
+- [`package.json`](./package.json) — Dependencias y scripts del proyecto  
 
-In the output, you'll find options to open the app in a
+### 🧾 Otros
+- [`.gitignore`](./.gitignore) — Archivos y carpetas ignoradas por Git  
+- [`README.md`](./README.md) — Documentación principal del proyecto  
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+📘 **Sugerencia:** puedes usar este índice como menú de navegación en el README principal para acceder rápidamente a los archivos desde GitHub.
