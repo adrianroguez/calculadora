@@ -20,6 +20,10 @@ type Theme = {
   equalsBtnBackground: string;
 };
 
+/**
+ * Definicion de los colores del tema claro.
+ * Incluye fondos, texto, botones y acentos.
+ */
 export const lightTheme: Theme = {
   background: "#FFFFFF",
   text: "#000000",
@@ -37,6 +41,10 @@ export const lightTheme: Theme = {
   equalsBtnBackground: "#0022FF",
 };
 
+/**
+ * Definicion de los colores del tema oscuro.
+ * Usa tonos oscuros con acentos naranjas.
+ */
 export const darkTheme: Theme = {
   background: "#000000",
   text: "#FFFFFF",
@@ -64,15 +72,28 @@ const ThemeContext = createContext<{
   toggleTheme: () => {},
 });
 
+/**
+ * Proveedor de contexto para el tema de la aplicacion.
+ * Determina el tema inicial segun el esquema del sistema (claro u oscuro).
+ * Permite alternar entre ambos temas.
+ */
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
+  // Detecta si el sistema esta en modo claro u oscuro
   const systemScheme = useColorScheme();
+
+  // Define el tipo de tema inicial segun la configuracion del sistema
   const [themeType, setThemeType] = useState<ThemeType>(
     systemScheme === "light" ? "light" : "dark"
   );
 
+  /**
+   * Cambia el tema actual alternando entre claro y oscuro.
+   * Se puede usar en un boton o toggle del UI.
+   */
   const toggleTheme = () =>
     setThemeType((prev) => (prev === "light" ? "dark" : "light"));
 
+  // Selecciona el tema actual segun el estado
   const theme = themeType === "light" ? lightTheme : darkTheme;
 
   return (
@@ -82,4 +103,8 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
+/**
+ * Hook personalizado para acceder al contexto de tema.
+ * Devuelve el tema actual, su tipo y la funcion para alternarlo.
+ */
 export const useTheme = () => useContext(ThemeContext);

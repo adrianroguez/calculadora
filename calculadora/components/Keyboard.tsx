@@ -14,8 +14,6 @@ type Props = {
 };
 
 export const Keyboard: React.FC<Props> = ({ onPress, onClear, onDelete, onEquals, onToggleSign, scientific }) => {
-  const color = "#ff9500";
-  const backgroundColor = "#777";
   const scale = scientific ? 0.7 : 1;
   const { theme } = useTheme();
 

@@ -9,7 +9,6 @@ import {
   Dimensions,
   FlatList,
   Easing,
-  Pressable,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "@/contexts/ThemeContext";
